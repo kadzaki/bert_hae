@@ -40,7 +40,7 @@ flags.DEFINE_string(
     "DoQA json for predictions.")
 
 flags.DEFINE_string(
-    "init_checkpoint", "/content/bert/bert_model.ckpt.data-00000-of-00001",
+    "init_checkpoint", "/content/bert/bert_model.ckpt",
     "Initial checkpoint (usually from a pre-trained BERT model).")
 
 
