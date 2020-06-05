@@ -625,10 +625,10 @@ def write_predictions(all_examples, all_features, all_results, n_best_size,
 
     with tf.gfile.GFile(output_prediction_file, "w") as writer:
         # convert to official evaluation format
-        if FLAGS.dataset.lower() == 'doqa':
+        if FLAGS.dataset.lower() == 'coqa':
             converted = []
             for key, value in all_predictions.items():
-                converted.append({'id': key[:30], 'turn_id': key[30:], 'answer': value})
+                converted.append({'id': key[:30], 'turn_id': int(key[30:]), 'answer': value})
                 writer.write(json.dumps(converted, indent=4) + "\n")
         elif FLAGS.dataset.lower() == 'doqa':
             converted = {}
