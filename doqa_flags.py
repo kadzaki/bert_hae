@@ -109,7 +109,7 @@ flags.DEFINE_integer(
 flags.DEFINE_bool("use_tpu", True, "Whether to use TPU or GPU/CPU.")
 
 tf.flags.DEFINE_string(
-    "tpu_name", "grpc://10.2.214.154:8470",
+    "tpu_name", "grpc://10.0.91.10:8470",
     "The Cloud TPU to use for training. This should be either the name "
     "used when creating the Cloud TPU, or a grpc://ip.address.of.tpu:8470 "
     "url.")
