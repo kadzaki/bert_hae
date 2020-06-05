@@ -272,6 +272,7 @@ with tf.Session() as sess:
             print('training step: {}, total_loss: {}'.format(step, total_loss_res))
             
             if step >= FLAGS.evaluate_after and step % FLAGS.evaluation_steps == 0 and step != 0:
+                print('enter if') # to remove
                 val_total_loss = []
                 all_results = []
                 all_selected_examples = []
@@ -284,6 +285,8 @@ with tf.Session() as sess:
                 val_batches = doqa_gen_example_aware_batches(val_features, val_example_tracker, val_variation_tracker, 
                                            val_example_features_nums, FLAGS.predict_batch_size, 1, shuffle=False)
                 
+                print( "# val batches: " + val_batches.shape[0] ) # to remove
+
                 for val_batch in val_batches:
 
                     batch_results = []
