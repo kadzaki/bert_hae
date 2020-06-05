@@ -36,10 +36,10 @@ import pickle
 import itertools
 from time import time
 
-from cqa_supports import *
-from cqa_flags import FLAGS
-from cqa_model import *
-from cqa_gen_batches import *
+from doqa_supports import *
+from doqa_flags import FLAGS
+from doqa_model import *
+from doqa_gen_batches import *
 
 from scorer import external_call # quac official evaluation script
 

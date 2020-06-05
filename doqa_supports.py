@@ -13,10 +13,10 @@ import six
 import tensorflow as tf
 from copy import deepcopy
 
-from cqa_flags import FLAGS
-from cqa_supports import *
-from cqa_model import *
-from cqa_gen_batches import *
+from doqa_flags import FLAGS
+from doqa_supports import *
+from doqa_model import *
+from doqa_gen_batches import *
 
 class DOQAExample(object):
     """A single training/test example."""
