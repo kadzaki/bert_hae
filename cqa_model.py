@@ -29,18 +29,18 @@ def bert_segment_rep(final_hidden):
     first_token_tensor = tf.squeeze(final_hidden[:, 0:1, :], axis=1)    
     return first_token_tensor
 
-def cqa_model(final_hidden):
+def doqa_model(final_hidden):
     final_hidden_shape = modeling.get_shape_list(final_hidden, expected_rank=3)
     batch_size = final_hidden_shape[0]
     seq_length = final_hidden_shape[1]
     hidden_size = final_hidden_shape[2]
 
     output_weights = tf.get_variable(
-        "cls/cqa/output_weights", [2, hidden_size],
+        "cls/doqa/output_weights", [2, hidden_size],
         initializer=tf.truncated_normal_initializer(stddev=0.02))
 
     output_bias = tf.get_variable(
-        "cls/cqa/output_bias", [2], initializer=tf.zeros_initializer())
+        "cls/doqa/output_bias", [2], initializer=tf.zeros_initializer())
 
     final_hidden_matrix = tf.reshape(final_hidden, [batch_size * seq_length, hidden_size])
     logits = tf.matmul(final_hidden_matrix, output_weights, transpose_b=True)

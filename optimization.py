@@ -68,7 +68,7 @@ def create_optimizer(loss, init_lr, num_train_steps, num_warmup_steps, use_tpu):
     optimizer = tf.contrib.tpu.CrossShardOptimizer(optimizer)
 
   tvars = tf.trainable_variables()
-  # we only optimize the CQA model, we do not optimize the RL model
+  # we only optimize the DOQA model, we do not optimize the RL model
   vars_to_optimize = [v for v in tvars if (v.name.startswith('bert') or v.name.startswith('cls'))]
   grads = tf.gradients(loss, vars_to_optimize)
 

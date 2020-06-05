@@ -13,7 +13,7 @@ import six
 import tensorflow as tf
 import numpy as np
 
-def cqa_gen_batches(features, batch_size, num_epoches, shuffle=False):
+def doqa_gen_batches(features, batch_size, num_epoches, shuffle=False):
     num_examples = len(features)
     
     if shuffle:
@@ -52,7 +52,7 @@ def cqa_gen_batches(features, batch_size, num_epoches, shuffle=False):
             yield (batch_unique_ids, batch_input_ids, batch_input_mask, batch_segment_ids, 
                    batch_start_positions, batch_end_positions, batch_history_answer_marker, batch_metadata)
             
-def cqa_gen_example_batches(examples, batch_size, num_epoches, shuffle=False):
+def doqa_gen_example_batches(examples, batch_size, num_epoches, shuffle=False):
     num_examples = len(examples)
     
     if shuffle:
@@ -71,7 +71,7 @@ def cqa_gen_example_batches(examples, batch_size, num_epoches, shuffle=False):
             yield batch_examples
         
         
-def cqa_gen_example_aware_batches(features, example_tracker, variation_tracker, example_features_nums, batch_size, num_epoches, shuffle=False):
+def doqa_gen_example_aware_batches(features, example_tracker, variation_tracker, example_features_nums, batch_size, num_epoches, shuffle=False):
     # generate example-aware batches: generate batches that contain the features for FLAGS.example_batch_size examples
     # the training examples have been shuffled before this function, so no need to shuffle here
     

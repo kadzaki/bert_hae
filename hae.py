@@ -72,8 +72,8 @@ if FLAGS.do_train:
     train_examples = None
     num_train_steps = None
     num_warmup_steps = None
-    train_file = FLAGS.quac_train_file
-    train_examples = read_quac_examples(input_file=train_file, is_training=True)
+    train_file = FLAGS.doqa_train_file
+    train_examples = read_doqa_examples(input_file=train_file, is_training=True)
         
     
     # we attempt to read features from cache
@@ -110,7 +110,7 @@ if FLAGS.do_train:
             pickle.dump(example_features_nums, handle) 
         print('train features generated')
                 
-    train_batches = cqa_gen_example_aware_batches(train_features, example_tracker, variation_tracker, 
+    train_batches = doqa_gen_example_aware_batches(train_features, example_tracker, variation_tracker, 
                                                   example_features_nums, FLAGS.train_batch_size, 
                                                   FLAGS.num_train_epochs, shuffle=False)
     
@@ -119,8 +119,8 @@ if FLAGS.do_train:
 
 if FLAGS.do_predict:
     # read in validation data, generate val features
-    val_file = FLAGS.quac_predict_file
-    val_examples = read_quac_examples(input_file=val_file, is_training=False)
+    val_file = FLAGS.doqa_predict_file
+    val_examples = read_doqa_examples(input_file=val_file, is_training=False)
     
     # we read in the val file in json for the external_call function in the validation step
     val_file_json = json.load(open(val_file, 'r'))['data']
@@ -185,7 +185,7 @@ bert_representation = bert_rep(
     use_one_hot_embeddings=False
     )
     
-(start_logits, end_logits) = cqa_model(bert_representation)
+(start_logits, end_logits) = doqa_model(bert_representation)
 
 
 tvars = tf.trainable_variables()
@@ -281,7 +281,7 @@ with tf.Session() as sess:
                 total_num_actions = 0
                 total_num_examples = 0
                 
-                val_batches = cqa_gen_example_aware_batches(val_features, val_example_tracker, val_variation_tracker, 
+                val_batches = doqa_gen_example_aware_batches(val_features, val_example_tracker, val_variation_tracker, 
                                            val_example_features_nums, FLAGS.predict_batch_size, 1, shuffle=False)
                 
                 for val_batch in val_batches:

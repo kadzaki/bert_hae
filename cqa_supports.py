@@ -18,7 +18,7 @@ from cqa_supports import *
 from cqa_model import *
 from cqa_gen_batches import *
 
-class CQAExample(object):
+class DOQAExample(object):
     """A single training/test example."""
 
     def __init__(self,
@@ -90,8 +90,8 @@ class InputFeatures(object):
         self.history_answer_marker = history_answer_marker
         self.metadata = metadata
         
-def read_quac_examples(input_file, is_training):
-    """Read a QuAC json file into a list of CQAExample."""
+def read_doqa_examples(input_file, is_training):
+    """Read a DoQA json file into a list of DOQAExample."""
     with tf.gfile.Open(input_file, "r") as reader:
         input_data = json.load(reader)["data"]
 
@@ -106,7 +106,7 @@ def read_quac_examples(input_file, is_training):
         # print('input_data:', input_data)
         tf.logging.warning('<<<<<<<<<< load_small_portion is on! >>>>>>>>>>')
     for entry in input_data:
-        # An additional "CANNOTANSWER" has been added in QuAC data, so no need to append one.
+        # An additional "CANNOTANSWER" has been added in DoQA data, so no need to append one.
         entry = entry['paragraphs'][0]
         paragraph_text = entry["context"]
         doc_tokens = []
@@ -221,7 +221,7 @@ def read_quac_examples(input_file, is_training):
                 else:
                     tf.logging.warning("Could not find history answer: '%s' vs. '%s'", history_actual_text, history_cleaned_answer_text)                                    
 
-            example = CQAExample(
+            example = DOQAExample(
                 qas_id=qas_id,
                 question_text=question_text,
                 doc_tokens=doc_tokens,
@@ -596,9 +596,9 @@ def write_predictions(all_examples, all_features, all_results, n_best_size,
         if not nbest:
             if for_reward:
                 continue
-            if FLAGS.dataset.lower() == 'coqa':
+            if FLAGS.dataset.lower() == 'doqa':
                 nbest.append(_NbestPrediction(text="unknown", start_logit=0.0, end_logit=0.0))
-            elif FLAGS.dataset.lower() == 'quac':
+            elif FLAGS.dataset.lower() == 'doqa':
                 nbest.append(_NbestPrediction(text="invalid", start_logit=0.0, end_logit=0.0))
 
         assert len(nbest) >= 1
@@ -625,12 +625,12 @@ def write_predictions(all_examples, all_features, all_results, n_best_size,
 
     with tf.gfile.GFile(output_prediction_file, "w") as writer:
         # convert to official evaluation format
-        if FLAGS.dataset.lower() == 'coqa':
+        if FLAGS.dataset.lower() == 'doqa':
             converted = []
             for key, value in all_predictions.items():
                 converted.append({'id': key[:30], 'turn_id': int(key[30:]), 'answer': value})
                 writer.write(json.dumps(converted, indent=4) + "\n")
-        elif FLAGS.dataset.lower() == 'quac':
+        elif FLAGS.dataset.lower() == 'doqa':
             converted = {}
             for key, value in all_predictions.items():
                 dialog_id = key[:36]
