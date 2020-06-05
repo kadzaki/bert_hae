@@ -270,7 +270,7 @@ with tf.Session() as sess:
             train_summary_writer.add_summary(train_summary, step)
             train_summary_writer.flush()
             print('training step: {}, total_loss: {}'.format(step, total_loss_res))
-            
+            print( "test" )
             if step >= FLAGS.evaluate_after and step % FLAGS.evaluation_steps == 0 and step != 0:
                 print('enter if') # to remove
                 val_total_loss = []
