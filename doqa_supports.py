@@ -628,7 +628,7 @@ def write_predictions(all_examples, all_features, all_results, n_best_size,
         if FLAGS.dataset.lower() == 'doqa':
             converted = []
             for key, value in all_predictions.items():
-                converted.append({'id': key[:30], 'turn_id': int(key[30:]), 'answer': value})
+                converted.append({'id': key[:30], 'turn_id': key[30:], 'answer': value})
                 writer.write(json.dumps(converted, indent=4) + "\n")
         elif FLAGS.dataset.lower() == 'doqa':
             converted = {}
