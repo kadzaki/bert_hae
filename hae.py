@@ -370,7 +370,7 @@ with tf.Session() as sess:
 
 # In[5]:
 
-
+print("ffffff")
 best_f1 = max(f1_list)
 best_f1_idx = f1_list.index(best_f1)
 best_heq = heq_list[best_f1_idx]
