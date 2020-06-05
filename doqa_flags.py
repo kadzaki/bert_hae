@@ -90,7 +90,7 @@ flags.DEFINE_integer("save_checkpoints_steps", 1000,
 flags.DEFINE_integer("evaluation_steps", 5,
                      "How often to do evaluation.")
 
-flags.DEFINE_integer("evaluate_after", 1102,
+flags.DEFINE_integer("evaluate_after", 0,
                      "we do evaluation after centain steps.")
 
 flags.DEFINE_integer("iterations_per_loop", 1000,
