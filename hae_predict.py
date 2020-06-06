@@ -264,6 +264,8 @@ with tf.Session() as sess:
     val_summary.value.add(tag="f1", simple_value=val_f1)
     f1_list.append(val_f1)
     
+    val_summary_writer = tf.summary.FileWriter(FLAGS.output_dir + 'summaries/val')
+    
     val_summary_writer.add_summary(val_summary, 0)
     val_summary_writer.flush()
 
