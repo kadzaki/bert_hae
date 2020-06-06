@@ -185,6 +185,10 @@ with tf.Session() as sess:
     total_num_selected = 0
     total_num_actions = 0
     total_num_examples = 0
+
+    f1_list = []
+    heq_list = []
+    dheq_list = []
     
     val_batches = doqa_gen_example_aware_batches(val_features, val_example_tracker, val_variation_tracker, 
                                val_example_features_nums, FLAGS.predict_batch_size, 1, shuffle=False)
