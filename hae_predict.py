@@ -222,8 +222,8 @@ with tf.Session() as sess:
         except:
             print('batch dropped because too large!')
 
-    output_prediction_file = os.path.join(FLAGS.output_dir, "predictions_{}.json".format(step))
-    output_nbest_file = os.path.join(FLAGS.output_dir, "nbest_predictions_{}.json".format(step))
+    output_prediction_file = os.path.join(FLAGS.output_dir, "predictions.json")
+    output_nbest_file = os.path.join(FLAGS.output_dir, "nbest_predictions.json")
 
     write_predictions(val_examples, all_selected_features, all_results,
                       FLAGS.n_best_size, FLAGS.max_answer_length,
@@ -251,17 +251,16 @@ with tf.Session() as sess:
     val_summary.value.add(tag="val_heq", simple_value=val_heq)
     val_summary.value.add(tag="val_dheq", simple_value=val_dheq)
 
-    print('evaluation: {}, total_loss: {}, f1: {}, followup: {}, yesno: {}, heq: {}, dheq: {}\n'.format(
-        step, val_total_loss_value, val_f1, val_followup, val_yesno, val_heq, val_dheq))
+    print('total_loss: {}, f1: {}, followup: {}, yesno: {}, heq: {}, dheq: {}\n'.format(val_total_loss_value, val_f1, val_followup, val_yesno, val_heq, val_dheq))
     with open(FLAGS.output_dir + 'step_result.txt', 'a') as fout:
-            fout.write('{},{},{},{},{},{}\n'.format(step, val_f1, val_heq, val_dheq, 
+            fout.write('{},{},{},{},{}\n'.format(val_f1, val_heq, val_dheq, 
                                 FLAGS.history, FLAGS.output_dir))
     
     val_summary.value.add(tag="total_loss", simple_value=val_total_loss_value)
     val_summary.value.add(tag="f1", simple_value=val_f1)
     f1_list.append(val_f1)
     
-    val_summary_writer.add_summary(val_summary, step)
+    val_summary_writer.add_summary(val_summary, 0)
     val_summary_writer.flush()
 
 # In[5]:
