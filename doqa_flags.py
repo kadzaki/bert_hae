@@ -40,6 +40,10 @@ flags.DEFINE_string(
     "DoQA json for predictions.")
 
 flags.DEFINE_string(
+    "doqa_test_file", "/content/doqa-v2.1/doqa_dataset/doqa-cooking-test-v2.1.json",
+    "DoQA json for test set.")
+
+flags.DEFINE_string(
     "init_checkpoint", "/content/bert/bert_model.ckpt",
     "Initial checkpoint (usually from a pre-trained BERT model).")
 
